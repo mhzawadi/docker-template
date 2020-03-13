@@ -1,0 +1,16 @@
+FROM alpine:3.9.4
+MAINTAINER Matthew Horwood <matt@horwood.biz>
+
+RUN apk update                \
+    && apk add nginx php7-fpm \
+    && mkdir -p /var/www/html/ \
+  	&& mkdir -p /run/nginx \
+  	&& rm -f /var/cache/apk/*;
+
+COPY config /config
+RUN cp /config/php.ini /etc/php7/php.ini \
+ && cp /config/php_fpm_site.conf /etc/php7/php-fpm.d/www.conf
+
+EXPOSE 80
+ENTRYPOINT ["/config/start.sh"]
+CMD ["nginx", "-g", "daemon off;"]

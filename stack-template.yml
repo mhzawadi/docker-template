@@ -1,0 +1,37 @@
+version: '3.5'
+
+# docker stack deploy --compose-file stack-template.yml template
+
+volumes:
+  template_data:
+
+services:
+  proxyv2:
+    image: traefik:v2.0 # The official Traefik docker image
+    command:
+      - "--api.insecure=true"
+      - "--providers.docker"
+      - "--providers.docker.swarmMode=true"
+    ports:
+      - "80:80"     # The HTTP port
+      - "443:443"   # The HTTP port
+      - "8181:8080" # The Web UI (enabled by --api)
+    volumes:
+      - /var/run/docker.sock:/var/run/docker.sock # So that Traefik can listen to the Docker events
+    deploy:
+      mode: replicated
+      replicas: 1
+      labels:
+        - "traefik.enable=false"
+  template:
+    image: your/template
+    volumes:
+    environment:
+    deploy:
+      replicas: 1
+      restart_policy:
+        condition: on-failure
+      labels:
+        - "traefik.http.routers.template.rule=Host(`template.docker.local`)"
+        - "traefik.http.routers.template.service=template"
+        - "traefik.http.services.template.loadbalancer.server.port=80"

@@ -1,0 +1,11 @@
+FROM alpine:3.9.4
+MAINTAINER Matthew Horwood <matt@horwood.biz>
+
+RUN apk update                     \
+    && apk add unit-php7 \
+    && rm -f /var/cache/apk/*;
+
+COPY config /config
+
+ENTRYPOINT ["/config/start_unit.sh"]
+CMD ["unitd", "--no-daemon", "--state /config/;"]
