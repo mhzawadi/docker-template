@@ -15,12 +15,11 @@ the 2 Dockerfile's are for nginx unit and nginx/php-fpm, if you know your app wo
 You can use this template to build images on the docker hub, you need to setup
 build rules.
 
-### Build with drone.io
+### Build with Github Actions
+To start using Github actions, add `Actions secrets` to the repository.
 
-This includes a drone config file, all you need to do is enable the repo on your drone server.
+You will need:
+- DOCKER_USERNAME: your docker hub username
+- DOCKER_PASSWORD: a new token from the docker hub
 
-the config uses 4 secret
-- telegram_user: the user to send a telegram message too
-- telegram_token: a token to use the telegram API
-- dockerhub_username: your Docker hub username
-- dockerhub_password: your Docker hub password
+Make sure your DOCKER_PASSWORD is a token, not your password!
