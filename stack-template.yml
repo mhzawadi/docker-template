@@ -7,7 +7,7 @@ volumes:
 
 services:
   proxyv2:
-    image: traefik:v2.0 # The official Traefik docker image
+    image: traefik:v2.10 # The official Traefik docker image
     command:
       - "--api.insecure=true"
       - "--providers.docker"
