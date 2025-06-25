@@ -6,7 +6,7 @@ and also on any system with docker installed.
 ## setup
 
 ### Building
-the 2 Dockerfile's are for nginx unit and nginx/php-fpm, if you know your app works with uint
+the 2 Dockerfile's are for nginx unit and nginx/php-fpm, if you know your app works with unit
 
 1. Update the Dockerfile for your application
 2. build the image `docker build -t image_name .`
