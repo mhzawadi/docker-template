@@ -1,8 +1,8 @@
-FROM alpine:3.18
-MAINTAINER Matthew Horwood <matt@horwood.biz>
+FROM alpine:3.22
+LABEL org.opencontainers.image.authors="matt@horwood.biz"
 
 RUN apk update                     \
-    && apk add unit-php81 \
+    && apk add unit-php84 \
     && rm -f /var/cache/apk/*;
 
 COPY config /config
