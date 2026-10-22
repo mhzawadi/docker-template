@@ -1,7 +1,15 @@
 #!/bin/sh
 
-cp /config/nginx_site.conf /etc/nginx/http.d/default.conf
+ln -s /dev/stdout /var/log/fpm-php.www.log
+ln -s /dev/stdout /var/log/php-fpm.log
+ln -s /dev/stdout /var/log/nginx/access.log
+ln -s /dev/stdout /var/log/nginx/error.log
 
-php-fpm7
+if [ "$TZ" != "" ]
+then
+  sed -i "s!Europe/London!$TZ!" /etc/php85/php.ini
+fi
+
+php-fpm85 --allow-to-run-as-root
 
 exec "$@"
